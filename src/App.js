@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  const cash = useSelector((cash) => cash.cash);
+
+  const addCash = () => {
+    dispatch({ type: "add_cash", payload: 1 });
+  };
+
+  const downCash = () => {
+    if (cash) {
+      dispatch({ type: "down_cash", payload: 1 });
+    }
+  };
+
+  const deleteCash = () => {
+    dispatch({ type: "delete_cash", payload: 0 });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="count-wrap">
+        <h1>{cash}</h1>
+        <div className="buttons">
+          <button onClick={addCash}>
+            <p>Add</p>
+          </button>
+          <button onClick={downCash}>
+            <p>Down</p>
+          </button>
+        </div>
+        <button className="delete_button" onClick={deleteCash}>
+          <p>Delete</p>
+        </button>
+      </div>
     </div>
   );
 }
